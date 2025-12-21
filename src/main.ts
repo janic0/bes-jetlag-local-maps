@@ -33,7 +33,7 @@ function haversineDistance(
 }
 
 const regions = await db.execute(
-  "SELECT id, brief_description, continent, creator, creator_name, creator_avatar, game_modes, latitude, longitude, map_url, title, popularity FROM `jltg-homegame-maps-cache`"
+  "SELECT id, brief_description, continent, creator, creator_name, creator_avatar, game_modes, latitude, longitude, map_url, title, popularity FROM `jltg-homegame-maps-cache` WHERE not deleted;"
 );
 
 console.log("Listening on: ", BunnySDK.net.tcp.toString(listener));
