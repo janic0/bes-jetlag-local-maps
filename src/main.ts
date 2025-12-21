@@ -129,7 +129,7 @@ BunnySDK.net.http.serve(async (req) => {
           id: creator,
           username: creator_name,
           avatar: creator_avatar,
-          collectioName: "map_users",
+          collectionName: "map_users",
         },
       },
       game_modes: game_modes.split(","),
