@@ -32,7 +32,12 @@ function haversineDistance(
   return radius * c;
 }
 
+const regions = await db.execute(
+  "SELECT id, brief_description, continent, creator, creator_name, creator_avatar, game_modes, latitude, longitude, map_url, title, popularity FROM `jltg-homegame-maps-cache`"
+);
+
 console.log("Listening on: ", BunnySDK.net.tcp.toString(listener));
+
 BunnySDK.net.http.serve(async (req) => {
   // const countryCode = "CH";
   // const regionCode = "TG";
@@ -68,10 +73,6 @@ BunnySDK.net.http.serve(async (req) => {
   popularity INT
 );
   */
-
-  const regions = await db.execute(
-    "SELECT id, brief_description, continent, creator, creator_name, creator_avatar, game_modes, latitude, longitude, map_url, title, popularity FROM `jltg-homegame-maps-cache`"
-  );
 
   if (center) {
     dataAccuracy = "optimal";
