@@ -138,10 +138,12 @@ BunnySDK.net.http.serve(async (req) => {
   console.log(
     `[INFO]: ${req.method} - ${req.url} - ${expectedISOCode} - ${center} ${dataAccuracy}`
   );
-  return new Response(JSON.stringify({ items: enrichedRegions }), {
+  return new Response(JSON.stringify({ items: enrichedRegions.slice(0, 10) }), {
     headers: {
       "content-type": "application/json",
       vary: "Remote-Addr, X-Forwarded-For",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET",
     },
   });
 });
