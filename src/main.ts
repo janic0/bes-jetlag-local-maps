@@ -123,10 +123,13 @@ BunnySDK.net.http.serve(async (req) => {
       longitude,
       popularity,
       map: map_url,
+      collectionName: "mps_maps",
       expand: {
         creator: {
+          id: creator,
           username: creator_name,
           avatar: creator_avatar,
+          collectioName: "map_users",
         },
       },
       game_modes: game_modes.split(","),
