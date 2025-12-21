@@ -48,7 +48,6 @@ BunnySDK.net.http.serve(async (req) => {
   const stateCode = req.headers.get("cdn-requeststatecode");
   const expectedISOCode = countryCode + "-" + stateCode;
 
-  console.log(expectedISOCode);
   let center: null | [number, number] = states[expectedISOCode];
   let dataAccuracy = "-";
 
@@ -136,7 +135,9 @@ BunnySDK.net.http.serve(async (req) => {
   );
   enrichedRegions.sort((a, b) => a.geoip_proximity - b.geoip_proximity);
 
-  console.log(`[INFO]: ${req.method} - ${req.url} - ${center} ${dataAccuracy}`);
+  console.log(
+    `[INFO]: ${req.method} - ${req.url} - ${expectedISOCode} - ${center} ${dataAccuracy}`
+  );
   return new Response(JSON.stringify({ items: enrichedRegions }), {
     headers: {
       "content-type": "application/json",
