@@ -53,6 +53,12 @@ BunnySDK.net.http.serve(async (req) => {
   const stateCode = req.headers.get("cdn-requeststatecode");
   const expectedISOCode = countryCode + "-" + stateCode;
 
+  let perPage = 10;
+  if (url.searchParams.has("perPage")) {
+    const parsedPerPage = parseInt(url.searchParams.get("perPage") ?? "10");
+    if (!isNaN(parsedPerPage)) perPage = parsedPerPage;
+  }
+
   let center: null | [number, number] = states[expectedISOCode];
   let dataAccuracy = "-";
 
@@ -142,12 +148,15 @@ BunnySDK.net.http.serve(async (req) => {
   console.log(
     `[INFO]: ${req.method} - ${req.url} - ${expectedISOCode} - ${center} ${dataAccuracy}`
   );
-  return new Response(JSON.stringify({ items: enrichedRegions.slice(0, 10) }), {
-    headers: {
-      "content-type": "application/json",
-      vary: "Remote-Addr, X-Forwarded-For",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET",
-    },
-  });
+  return new Response(
+    JSON.stringify({ items: enrichedRegions.slice(0, perPage) }),
+    {
+      headers: {
+        "content-type": "application/json",
+        vary: "cdn-requeststatecode, cdn-requeststatecode",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+      },
+    }
+  );
 });
