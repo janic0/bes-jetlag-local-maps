@@ -200,7 +200,7 @@ await Promise.all(
             }
             if (!detectionSource) {
               for (const subdivision of expectedSubdivisions) {
-                if (!subdivision.localOtherName) return;
+                if (!subdivision.localOtherName) continue;
                 if (
                   subdivision.localOtherName
                     .toLowerCase()
@@ -279,6 +279,7 @@ await Promise.all(
           //   combinedISOCode
           // );
         }
+
         const shapeISO = combinedISOCode;
         if (shapeISO == null || shapeISO.length === 0) {
           // if (feature.shapeID == "17685810B50760377364469") shapeISO = "IR-23";
